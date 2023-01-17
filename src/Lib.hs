@@ -1,15 +1,12 @@
-module Lib where
+module Lib (findLargestCalory, convertSringToCalories) where
 
 import Data.List (groupBy)
 
-countCalories :: [Integer] -> Integer
-countCalories = sum
-
 findLargestCalory :: [[Integer]] -> Integer
-findLargestCalory xss = maximum $ map countCalories xss
+findLargestCalory xss = maximum $ map sum xss
 
-convertFileToCalories :: String -> [[Integer]]
-convertFileToCalories xs = map (map read) ys
+convertSringToCalories :: String -> [[Integer]]
+convertSringToCalories xs = map (map read) ys
   where
     gs = groupBy (\x y -> x /= "" && y /= "") $ lines xs
     ys = filter (/= [""]) gs

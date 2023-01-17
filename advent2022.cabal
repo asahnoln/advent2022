@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           advent2023
+name:           advent2022
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/asahnoln/advent2023#readme>
-homepage:       https://github.com/asahnoln/advent2023#readme
-bug-reports:    https://github.com/asahnoln/advent2023/issues
+description:    Please see the README on GitHub at <https://github.com/asahnoln/advent2022#readme>
+homepage:       https://github.com/asahnoln/advent2022#readme
+bug-reports:    https://github.com/asahnoln/advent2022/issues
 author:         Arthur Aslanyan
 maintainer:     arthur.e.aslanyan@gmail.com
 copyright:      2023 Arthur Aslanyan
@@ -21,13 +21,13 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/asahnoln/advent2023
+  location: https://github.com/asahnoln/advent2022
 
 library
   exposed-modules:
       Lib
   other-modules:
-      Paths_advent2023
+      Paths_advent2022
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -35,28 +35,28 @@ library
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable advent2023-exe
+executable advent2022-exe
   main-is: Main.hs
   other-modules:
-      Paths_advent2023
+      Paths_advent2022
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      advent2023
+      advent2022
     , base >=4.7 && <5
   default-language: Haskell2010
 
-test-suite advent2023-test
+test-suite advent2022-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_advent2023
+      Paths_advent2022
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      advent2023
+      advent2022
     , base >=4.7 && <5
     , hspec
   default-language: Haskell2010

@@ -1,6 +1,6 @@
-name: advent2023
+name: advent2022
 version: 0.1.0.0
-github: "asahnoln/advent2023"
+github: "asahnoln/advent2022"
 license: BSD3
 author: "Arthur Aslanyan"
 maintainer: "arthur.e.aslanyan@gmail.com"
@@ -15,7 +15,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description: Please see the README on GitHub at <https://github.com/asahnoln/advent2023#readme>
+description: Please see the README on GitHub at <https://github.com/asahnoln/advent2022#readme>
 dependencies:
   - base >= 4.7 && < 5
 ghc-options:
@@ -31,7 +31,7 @@ ghc-options:
 library:
   source-dirs: src
 executables:
-  advent2023-exe:
+  advent2022-exe:
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -39,9 +39,9 @@ executables:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - advent2023
+      - advent2022
 tests:
-  advent2023-test:
+  advent2022-test:
     main: Spec.hs
     source-dirs: test
     ghc-options:
@@ -49,5 +49,5 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - advent2023
+      - advent2022
       - hspec
