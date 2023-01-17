@@ -1,8 +1,8 @@
 module Main (main) where
 
-import Lib (convertSringToCalories, findLargestCalory)
+import Day01 (convertSringToCalories, findLargestCaloryOfTop3)
 
 main :: IO ()
 main = do
   l <- getContents
-  print $ findLargestCalory $ convertSringToCalories l
+  print $ findLargestCaloryOfTop3 $ convertSringToCalories l
