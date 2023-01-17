@@ -1,1 +1,3 @@
-# advent2023
+# advent2022
+
+Advent of Code 2022
