@@ -5,6 +5,7 @@ module Day02 (
     hand,
     Result (..),
     scoreMatch,
+    parse,
 )
 where
 
@@ -53,3 +54,8 @@ match x y = score y + scoreMatch result
         GT -> Win
         EQ -> Draw
         LT -> Lose
+
+parse :: String -> Integer
+parse xs = sum matches
+    where
+        matches = map (\x -> match (hand $ x !! 0) (hand $ x !! 2)) $ lines xs

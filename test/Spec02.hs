@@ -5,6 +5,7 @@ import Day02 (
     Result (..),
     hand,
     match,
+    parse,
     score,
     scoreMatch,
  )
@@ -35,7 +36,9 @@ spec = describe "Day 2 elves" $ do
             scoreMatch Win `shouldBe` 6
             scoreMatch Draw `shouldBe` 3
             scoreMatch Lose `shouldBe` 0
-        it "I get score with rock against rock" $ do
+        it "I get proper scores" $ do
             match Rock Paper `shouldBe` 8
             match Paper Rock `shouldBe` 1
             match Scissors Scissors `shouldBe` 6
+        it "translates strings to score" $ do
+            parse "A Y\nB X\nC Z" `shouldBe` 15
