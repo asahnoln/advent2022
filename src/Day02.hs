@@ -95,12 +95,13 @@ parseCommon r xs = do
             ( \x -> do
                 lh <- hand $ head x
 
+                let c = x !! 2
                 rh <-
                     if r
                         then do
-                            rslt <- result $ x !! 2
+                            rslt <- result c
                             return $ handFor lh rslt
-                        else hand $ x !! 2
+                        else hand c
 
                 return $ match lh rh
             )
