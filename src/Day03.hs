@@ -3,21 +3,24 @@ module Day03 (sumDups, sumBadges) where
 import Data.Char (isUpper, ord)
 import Data.List (intersect)
 
--- | `sumDups` finds duplicate items (letters) in each half of each line of the given string.
+-- TODO: Everything here is not safe. Things might blow up on wrong input.
+
+-- | `sumDups` finds the sum of priorities of duplicate items (letters) in each half of each line of the given string.
 sumDups :: String -> Integer
 sumDups = sum . map findDupScore . lines
 
+-- | `sumBadges` finds the sum of priorities of badges - duplicate items (letter) in each 3 lines of the given string.
 sumBadges :: String -> Integer
-sumBadges xs = chrScore i + chrScore i2
+sumBadges = sumBadges' . lines
+
+-- | `sumBadges'` is a helper function to count the sum of the badges.
+sumBadges' :: [String] -> Integer
+sumBadges' [] = 0
+sumBadges' lss = i + sumBadges' (drop 3 lss)
   where
-    lss = lines xs
     ls = take 3 lss
     is = (ls !! 0) `intersect` (ls !! 1) `intersect` (ls !! 2)
-    i = head is
-
-    ls2 = drop 3 lss
-    is2 = (ls2 !! 0) `intersect` (ls2 !! 1) `intersect` (ls2 !! 2)
-    i2 = head is2
+    i = chrScore $ head is
 
 -- | `baseLwr` is a base number substracted from lowercased character codes.
 baseLwr :: Int

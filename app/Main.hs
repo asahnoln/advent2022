@@ -5,7 +5,7 @@ import Day01 (
     findLargestCaloryOfTop3,
  )
 import Day02 (parse, parseWithResults)
-import Day03 (sumDups)
+import Day03 (sumDups, sumBadges)
 
 main :: IO ()
 main = day03
@@ -23,4 +23,4 @@ day02 = do
 day03 :: IO ()
 day03 = do
     l <- getContents
-    print $ sumDups l
+    print $ sumBadges l
