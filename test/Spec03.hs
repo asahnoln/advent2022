@@ -1,6 +1,6 @@
 module Spec03 (spec) where
 
-import Day03 (sumDups)
+import Day03 (sumDups, sumBadges)
 import Test.Hspec
 
 spec :: SpecWith ()
@@ -9,3 +9,5 @@ spec = do
         context "check rucksacks" $ do
             it "sums all duplicates" $ do
                 sumDups "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw" `shouldBe` 157
+            it "sums all badges (duplicates for every three lines)" $ do
+                sumBadges "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw" `shouldBe` 70
