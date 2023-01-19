@@ -98,8 +98,8 @@ parseCommon r xs = do
                 rh <-
                     if r
                         then do
-                            rh <- result $ x !! 2
-                            return $ handFor lh rh
+                            rslt <- result $ x !! 2
+                            return $ handFor lh rslt
                         else hand $ x !! 2
 
                 return $ match lh rh
