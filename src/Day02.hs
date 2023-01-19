@@ -9,38 +9,36 @@ module Day02 (
 )
 where
 
-data Hand = Wrong | Paper | Scissors | Rock deriving (Eq, Show)
+-- | `Hand` identifies a type of gesture a player can use in the game
+data Hand = Paper | Scissors | Rock deriving (Eq, Show)
 
+-- | Hands can be compared to each other - as Rock beats Scissors, thus Rock is Greater Than Scissors, etc.
 instance Ord Hand where
     Paper `compare` Paper = EQ
     Rock `compare` Rock = EQ
     Scissors `compare` Scissors = EQ
-    Wrong `compare` Wrong = EQ
     Paper `compare` Rock = GT
     Rock `compare` Scissors = GT
     Scissors `compare` Paper = GT
-    _ `compare` Wrong = GT
     Rock `compare` Paper = LT
     Scissors `compare` Rock = LT
     Paper `compare` Scissors = LT
-    Wrong `compare` _ = LT
 
 data Result = Lose | Draw | Win
 
-hand :: Char -> Hand
-hand 'A' = Rock
-hand 'B' = Scissors
-hand 'C' = Paper
-hand 'X' = Rock
-hand 'Y' = Scissors
-hand 'Z' = Paper
-hand _ = Wrong
+hand :: Char -> Either String Hand
+hand 'A' = Right Rock
+hand 'B' = Right Paper
+hand 'C' = Right Scissors
+hand 'X' = Right Rock
+hand 'Y' = Right Paper
+hand 'Z' = Right Scissors
+hand _ = Left "Wrong character"
 
 score :: Hand -> Integer
 score Rock = 1
 score Paper = 2
 score Scissors = 3
-score _ = 0
 
 scoreMatch :: Result -> Integer
 scoreMatch Win = 6
@@ -55,7 +53,14 @@ match x y = score y + scoreMatch result
         EQ -> Draw
         LT -> Lose
 
-parse :: String -> Integer
-parse xs = sum matches
-    where
-        matches = map (\x -> match (hand $ x !! 0) (hand $ x !! 2)) $ lines xs
+parse :: String -> Either String Integer
+parse xs = do
+    matches <-
+        mapM
+            ( \x -> do
+                lh <- hand $ x !! 0
+                rh <- hand $ x !! 2
+                return $ match lh rh
+            )
+            (lines xs)
+    return $ sum matches
