@@ -83,25 +83,26 @@ match x y = score y + scoreMatch r
         LT -> Lose
 
 parse :: String -> Either String Integer
-parse xs = do
-    matches <-
-        mapM
-            ( \x -> do
-                lh <- hand $ x !! 0
-                rh <- hand $ x !! 2
-                return $ match lh rh
-            )
-            (lines xs)
-    return $ sum matches
+parse = parseCommon False
 
 parseWithResults :: String -> Either String Integer
-parseWithResults xs = do
+parseWithResults = parseCommon True
+
+parseCommon :: Bool -> String -> Either String Integer
+parseCommon r xs = do
     matches <-
         mapM
             ( \x -> do
-                lh <- hand $ x !! 0
-                rh <- result $ x !! 2
-                return $ match lh $ handFor lh rh
+                lh <- hand $ head x
+
+                rh <-
+                    if r
+                        then do
+                            rh <- result $ x !! 2
+                            return $ handFor lh rh
+                        else hand $ x !! 2
+
+                return $ match lh rh
             )
             (lines xs)
     return $ sum matches
