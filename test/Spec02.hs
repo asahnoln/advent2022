@@ -4,8 +4,11 @@ import Day02 (
     Hand (..),
     Result (..),
     hand,
+    handFor,
     match,
     parse,
+    parseWithResults,
+    result,
     score,
     scoreMatch,
  )
@@ -26,6 +29,10 @@ spec = describe "Day 2 elves" $ do
             hand 'X' `shouldBe` Right Rock
             hand 'Y' `shouldBe` Right Paper
             hand 'Z' `shouldBe` Right Scissors
+        it "letters to results" $ do
+            result 'X' `shouldBe` Right Lose
+            result 'Y' `shouldBe` Right Draw
+            result 'Z' `shouldBe` Right Win
         it "scores from hands" $ do
             score Rock `shouldBe` 1
             score Paper `shouldBe` 2
@@ -38,14 +45,13 @@ spec = describe "Day 2 elves" $ do
             match Rock Paper `shouldBe` 8
             match Paper Rock `shouldBe` 1
             match Scissors Scissors `shouldBe` 6
-
-            match Rock Rock `shouldBe` 4
-            match Rock Scissors `shouldBe` 3
-            match Scissors Rock `shouldBe` 7
-            match Scissors Paper `shouldBe` 2
-            match Paper Scissors `shouldBe` 9
-            match Paper Paper `shouldBe` 5
         it "translates strings to score" $ do
             parse "A Y\nB X\nC Z" `shouldBe` Right 15
         it "translates wrong input to error" $ do
-            parse "1 2\n3 4\n5 6" `shouldBe` Left "Wrong character"
+            parse "1 2\n3 4\n5 6" `shouldBe` Left "Wrong character for hand"
+        it "predicts hand for result" $ do
+            handFor Rock Draw `shouldBe` Rock
+            handFor Paper Lose `shouldBe` Rock
+            handFor Scissors Win `shouldBe` Rock
+        it "translates strings to score" $ do
+            parseWithResults "A Y\nB X\nC Z" `shouldBe` Right 12

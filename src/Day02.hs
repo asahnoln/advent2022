@@ -6,6 +6,9 @@ module Day02 (
     Result (..),
     scoreMatch,
     parse,
+    result,
+    handFor,
+    parseWithResults,
 )
 where
 
@@ -24,7 +27,21 @@ instance Ord Hand where
     Scissors `compare` Rock = LT
     Paper `compare` Scissors = LT
 
-data Result = Lose | Draw | Win
+instance Enum Hand where
+    pred Paper = Rock
+    pred Rock = Scissors
+    pred Scissors = Paper
+
+    toEnum 0 = Paper
+    toEnum 1 = Scissors
+    toEnum 2 = Rock
+    toEnum _ = Paper
+
+    fromEnum Paper = 0
+    fromEnum Scissors = 1
+    fromEnum Rock = 2
+
+data Result = Lose | Draw | Win deriving (Eq, Show)
 
 hand :: Char -> Either String Hand
 hand 'A' = Right Rock
@@ -33,7 +50,13 @@ hand 'C' = Right Scissors
 hand 'X' = Right Rock
 hand 'Y' = Right Paper
 hand 'Z' = Right Scissors
-hand _ = Left "Wrong character"
+hand _ = Left "Wrong character for hand"
+
+result :: Char -> Either String Result
+result 'X' = Right Lose
+result 'Y' = Right Draw
+result 'Z' = Right Win
+result _ = Left "Wrong character for result"
 
 score :: Hand -> Integer
 score Rock = 1
@@ -45,10 +68,16 @@ scoreMatch Win = 6
 scoreMatch Draw = 3
 scoreMatch Lose = 0
 
+handFor :: Hand -> Result -> Hand
+handFor x y = case y of
+    Draw -> x
+    Lose -> pred x
+    Win -> succ x
+
 match :: Hand -> Hand -> Integer
-match x y = score y + scoreMatch result
+match x y = score y + scoreMatch r
   where
-    result = case compare y x of
+    r = case compare y x of
         GT -> Win
         EQ -> Draw
         LT -> Lose
@@ -61,6 +90,18 @@ parse xs = do
                 lh <- hand $ x !! 0
                 rh <- hand $ x !! 2
                 return $ match lh rh
+            )
+            (lines xs)
+    return $ sum matches
+
+parseWithResults :: String -> Either String Integer
+parseWithResults xs = do
+    matches <-
+        mapM
+            ( \x -> do
+                lh <- hand $ x !! 0
+                rh <- result $ x !! 2
+                return $ match lh $ handFor lh rh
             )
             (lines xs)
     return $ sum matches

@@ -4,7 +4,7 @@ import Day01 (
     convertSringToCalories,
     findLargestCaloryOfTop3,
  )
-import Day02 (parse)
+import Day02 (parse, parseWithResults)
 
 main :: IO ()
 main = day02
@@ -17,4 +17,4 @@ day01 = do
 day02 :: IO ()
 day02 = do
     l <- getContents
-    print $ parse l
+    print $ parseWithResults l
