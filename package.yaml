@@ -30,6 +30,8 @@ ghc-options:
   - -Wredundant-constraints
 library:
   source-dirs: src
+  dependencies:
+    - text
 executables:
   advent2022-exe:
     main: Main.hs
