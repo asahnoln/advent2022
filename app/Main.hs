@@ -5,8 +5,8 @@ import Day01 (
     findLargestCaloryOfTop3,
  )
 import Day02 (parse, parseWithResults)
-import Day03 (sumDups, sumBadges)
-import Day04 (fullOverlaps)
+import Day03 (sumBadges, sumDups)
+import Day04 (fullOverlaps, partOverlaps)
 
 main :: IO ()
 main = day04
@@ -29,4 +29,4 @@ day03 = do
 day04 :: IO ()
 day04 = do
     l <- getContents
-    print $ fullOverlaps l
+    print $ partOverlaps l
