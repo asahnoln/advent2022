@@ -13,7 +13,9 @@ Advent of Code 2022 in Haskell
 - [x] Day 3
   - [x] Part 1
   - [x] Part 2
-- [ ] Day 4
+- [x] Day 4
+  - [x] Part 1
+  - [x] Part 2
 - [ ] Day 5
 - [ ] Day 6
 - [ ] Day 7
