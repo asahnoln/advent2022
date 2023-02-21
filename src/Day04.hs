@@ -13,7 +13,7 @@ partOverlaps :: String -> Integer
 partOverlaps = baseOverlaps False
 
 baseOverlaps :: Bool -> String -> Integer
-baseOverlaps full = toInteger . length . filter (== True) . map (overlaps full) . lines
+baseOverlaps full = toInteger . length . filter id . map (overlaps full) . lines
 
 overlaps :: Bool -> String -> Bool
 overlaps full xs = result

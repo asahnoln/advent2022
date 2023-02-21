@@ -1,6 +1,6 @@
 module Spec03 (spec) where
 
-import Day03 (sumDups, sumBadges)
+import Day03 (sumBadges, sumDups)
 import Test.Hspec
 
 spec :: SpecWith ()
