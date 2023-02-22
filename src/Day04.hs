@@ -23,17 +23,6 @@ overlaps full xs = result
     g1 = T.splitOn packDash $ gs !! 0
     g2 = T.splitOn packDash $ gs !! 1
 
-    toNumbers :: [T.Text] -> [Integer]
-    toNumbers ts = case rslt of
-        Right x -> x
-        Left _ -> []
-      where
-        rslt = do
-            (start, _) <- R.decimal $ ts !! 0
-            (end, _) <- R.decimal $ ts !! 1
-
-            return [start .. end]
-
     l1 = toNumbers g1
     l2 = toNumbers g2
     i = l1 `intersect` l2
@@ -41,3 +30,14 @@ overlaps full xs = result
         if full
             then i == l1 || i == l2
             else not . null $ i
+
+toNumbers :: [T.Text] -> [Integer]
+toNumbers ts = case rslt of
+    Right x -> x
+    Left _ -> []
+  where
+    rslt = do
+        (start, _) <- R.decimal $ ts !! 0
+        (end, _) <- R.decimal $ ts !! 1
+
+        return [start .. end]
