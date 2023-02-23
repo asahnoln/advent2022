@@ -1,7 +1,13 @@
-module Day05 (performOn, move) where
+module Day05 (performOn, move, parseCrates) where
 
 performOn :: String -> String
-performOn _ = undefined
+performOn xss = result
+  where
+    -- TODO: Data source from xss
+    crates = ["NZ", "DCM", "P"]
+    iss = [move 1 1 2, move 2 2 1, move 3 1 3, move 1 2 1]
+    final = foldr (\f acc -> f acc) crates iss
+    result = map head final
 
 move :: Int -> Int -> Int -> [String] -> [String]
 move c f t xss = result
@@ -24,3 +30,10 @@ move c f t xss = result
             )
             [1 ..]
             xss
+
+parseCrates :: String -> [String]
+parseCrates cs = ss
+  where
+    ls = lines cs
+    -- FIX: Different line widths
+    ss = [map (!! 1) ls, map (!! 5) ls]

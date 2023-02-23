@@ -7,6 +7,13 @@ spec :: SpecWith ()
 spec = do
     describe "Day 5 elves" $ do
         context "move crates" $ do
+            context "parses string crates" $ do
+                it "1 crate" $ do
+                    parseCrates "[A]" `shouldBe` ["A"]
+                it "2 crates" $ do
+                    parseCrates "[A]\n[B]" `shouldBe` ["AB"]
+                it "2 columns" $ do
+                    parseCrates "[A] [C]\n[B] [D]" `shouldBe` ["AB", "CD"]
             it "moves crates" $ do
                 move 3 1 3 ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]
             it "get top crates" $ do
