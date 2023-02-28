@@ -1,5 +1,7 @@
 module Day05 (performOn, move, parseCrates) where
 
+import Data.Char (isSpace)
+
 performOn :: String -> String
 performOn xss = result
   where
@@ -40,6 +42,8 @@ parseCrates cs = ss
     cratesToListOfStrings :: Int -> [String]
     cratesToListOfStrings x
         | x > lineLength = []
-        | otherwise = map (!! x) ls : cratesToListOfStrings (x + 4)
+        | otherwise = charList : cratesToListOfStrings (x + 4)
+      where
+        charList = filter (not . isSpace) . map (!! x) $ ls
 
     ss = cratesToListOfStrings 1

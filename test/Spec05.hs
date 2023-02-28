@@ -16,6 +16,8 @@ spec = do
                     parseCrates "[A] [C]" `shouldBe` ["A", "C"]
                 it "2 columns and 2 rows" $ do
                     parseCrates "[A] [C]\n[B] [D]" `shouldBe` ["AB", "CD"]
+                it "2 uneven columns and 2 rows" $ do
+                    parseCrates "    [C]\n[B] [D]" `shouldBe` ["B", "CD"]
             it "moves crates" $ do
                 move 3 1 3 ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]
             it "get top crates" $ do
