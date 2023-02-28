@@ -13,6 +13,8 @@ spec = do
                 it "2 crates" $ do
                     parseCrates "[A]\n[B]" `shouldBe` ["AB"]
                 it "2 columns" $ do
+                    parseCrates "[A] [C]" `shouldBe` ["A", "C"]
+                it "2 columns and 2 rows" $ do
                     parseCrates "[A] [C]\n[B] [D]" `shouldBe` ["AB", "CD"]
             it "moves crates" $ do
                 move 3 1 3 ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]

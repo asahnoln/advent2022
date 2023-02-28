@@ -35,5 +35,11 @@ parseCrates :: String -> [String]
 parseCrates cs = ss
   where
     ls = lines cs
-    -- FIX: Different line widths
-    ss = [map (!! 1) ls, map (!! 5) ls]
+    lineLength = length $ head ls
+
+    cratesToListOfStrings :: Int -> [String]
+    cratesToListOfStrings x
+        | x > lineLength = []
+        | otherwise = map (!! x) ls : cratesToListOfStrings (x + 4)
+
+    ss = cratesToListOfStrings 1
