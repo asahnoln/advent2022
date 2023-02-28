@@ -12,7 +12,7 @@ spec = do
                     parseCmds "move 1 from 2 to 3" `shouldBe` [Move 1 2 3]
                 it "2 commands" $ do
                     parseCmds "move 1 from 2 to 3\n\
-                              \move 4 from 5 to 6" `shouldBe` [Move 1 2 3, Move 4 5 6]
+                              \move 40 from 50 to 60" `shouldBe` [Move 1 2 3, Move 40 50 60]
             context "parses string crates" $ do
                 it "1 crate" $ do
                     parseCrates "[A]" `shouldBe` ["A"]
@@ -25,16 +25,24 @@ spec = do
                 it "2 uneven columns and 2 rows" $ do
                     parseCrates "    [C]\n[B] [D]" `shouldBe` ["B", "CD"]
             it "moves crates" $ do
-                move 3 1 3 ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]
-            it "get top crates" $ do
-                performOn
-                    "    [D]    \n\
-                    \[N] [C]    \n\
-                    \[Z] [M] [P]\n\
-                    \ 1   2   3 \n\
-                    \\n\
-                    \move 1 from 2 to 1\n\
-                    \move 3 from 1 to 3\n\
-                    \move 2 from 2 to 1\n\
-                    \move 1 from 1 to 2"
-                    `shouldBe` "CMZ"
+                move (Move 3 1 3) ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]
+            it "break string into crates and commands" $ do
+                prepare "[A]\n 1 \n\nmove 1 from 2 to 3"
+                    `shouldBe`
+                    ("[A]\n", "move 1 from 2 to 3\n")
+            context "get top crates" $ do
+                it "for every column" $ do
+                    performOn
+                        "    [D]    \n\
+                        \[N] [C]    \n\
+                        \[Z] [M] [P]\n\
+                        \ 1   2   3 \n\
+                        \\n\
+                        \move 1 from 2 to 1\n\
+                        \move 3 from 1 to 3\n\
+                        \move 2 from 2 to 1\n\
+                        \move 1 from 1 to 2"
+                        `shouldBe` "CMZ"
+                it "for some empty columns" $ do
+                    performOn "[A] [B]\n 1  2 \n\nmove 1 from 1 to 2" `shouldBe` " A"
+

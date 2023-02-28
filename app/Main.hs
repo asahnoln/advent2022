@@ -7,9 +7,10 @@ import Day01 (
 import Day02 (parse, parseWithResults)
 import Day03 (sumBadges, sumDups)
 import Day04 (fullOverlaps, partOverlaps)
+import Day05 (performOn)
 
 main :: IO ()
-main = day04
+main = day05
 
 day01 :: IO ()
 day01 = do
@@ -30,3 +31,8 @@ day04 :: IO ()
 day04 = do
     l <- getContents
     print $ partOverlaps l
+
+day05 :: IO ()
+day05 = do
+    l <- getContents
+    print $ performOn l

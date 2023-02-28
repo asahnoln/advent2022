@@ -1,18 +1,27 @@
-module Day05 (performOn, move, parseCrates, parseCmds, Move (..)) where
+module Day05 (performOn, move, parseCrates, parseCmds, Move (..), prepare) where
 
 import Data.Char (isSpace)
 
-performOn :: String -> String
-performOn xss = result
-  where
-    -- TODO: Data source from xss
-    crates = ["NZ", "DCM", "P"]
-    iss = [move 1 1 2, move 2 2 1, move 3 1 3, move 1 2 1]
-    final = foldr (\f acc -> f acc) crates iss
-    result = map head final
+type Count = Int
+type From = Int
+type To = Int
 
-move :: Count -> From -> To -> [String] -> [String]
-move c f t xss = result
+data Move = Move Count From To deriving (Show, Eq)
+
+performOn :: String -> String
+performOn xss = map headForEmpty final
+  where
+    (cratesString, cmdString) = prepare xss
+    crates = parseCrates cratesString
+    cmds = parseCmds cmdString
+    final = foldr move crates cmds
+
+    headForEmpty :: String -> Char
+    headForEmpty "" = ' '
+    headForEmpty (x:_) = x
+
+move :: Move -> [String] -> [String]
+move (Move c f t) xss = result
   where
     rTo = xss !! (t - 1)
     rFrom = xss !! (f - 1)
@@ -57,8 +66,7 @@ parseCmds = map getCmd . lines
         f = read $ args !! 3
         t = read $ args !! 5
 
-type Count = Int
-type From = Int
-type To = Int
-
-data Move = Move Count From To deriving (Show, Eq)
+prepare :: String -> (String, String)
+prepare xs = (unlines . init $ crates, unlines . filter (/= "") $ cmds)
+  where
+    (crates, cmds) = break (== "") $ lines xs
