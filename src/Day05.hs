@@ -1,4 +1,4 @@
-module Day05 (performOn, move, parseCrates) where
+module Day05 (performOn, move, parseCrates, parseCmds, Move (..)) where
 
 import Data.Char (isSpace)
 
@@ -11,7 +11,7 @@ performOn xss = result
     final = foldr (\f acc -> f acc) crates iss
     result = map head final
 
-move :: Int -> Int -> Int -> [String] -> [String]
+move :: Count -> From -> To -> [String] -> [String]
 move c f t xss = result
   where
     rTo = xss !! (t - 1)
@@ -34,7 +34,7 @@ move c f t xss = result
             xss
 
 parseCrates :: String -> [String]
-parseCrates cs = ss
+parseCrates cs = cratesToListOfStrings 1
   where
     ls = lines cs
     lineLength = length $ head ls
@@ -46,4 +46,19 @@ parseCrates cs = ss
       where
         charList = filter (not . isSpace) . map (!! x) $ ls
 
-    ss = cratesToListOfStrings 1
+parseCmds :: String -> [Move]
+parseCmds = map getCmd . lines
+  where
+    getCmd :: String -> Move
+    getCmd l = Move c f t
+      where
+        args = words l
+        c = read $ args !! 1
+        f = read $ args !! 3
+        t = read $ args !! 5
+
+type Count = Int
+type From = Int
+type To = Int
+
+data Move = Move Count From To deriving (Show, Eq)
