@@ -2,12 +2,19 @@ module Day05 (performOn, move, parseCrates, parseCmds, Move (..), prepare) where
 
 import Data.Char (isSpace)
 
+-- | Count of the crates to move.
 type Count = Int
+
+-- | Index for the column to move the crates from.
 type From = Int
+
+-- | Index for the column to move the crates to.
 type To = Int
 
+-- | Command type to use in move function.
 data Move = Move Count From To deriving (Show, Eq)
 
+-- | Finds top crates for the given string of crates and commands.
 performOn :: String -> String
 performOn xss = map headForEmpty final
   where
@@ -18,8 +25,9 @@ performOn xss = map headForEmpty final
 
     headForEmpty :: String -> Char
     headForEmpty "" = ' '
-    headForEmpty (x:_) = x
+    headForEmpty (x : _) = x
 
+-- | Moves crates with given Move command for the given string of crates.
 move :: Move -> [String] -> [String]
 move (Move c f t) xss = result
   where
@@ -42,6 +50,7 @@ move (Move c f t) xss = result
             [1 ..]
             xss
 
+-- | Parses given string of crates into lists of letters.
 parseCrates :: String -> [String]
 parseCrates cs = cratesToListOfStrings 1
   where
@@ -55,6 +64,7 @@ parseCrates cs = cratesToListOfStrings 1
       where
         charList = filter (not . isSpace) . map (!! x) $ ls
 
+-- | Parses given string of commands into list of Move.
 parseCmds :: String -> [Move]
 parseCmds = map getCmd . lines
   where
@@ -66,6 +76,7 @@ parseCmds = map getCmd . lines
         f = read $ args !! 3
         t = read $ args !! 5
 
+-- | Breaks given string of crates and commands into tuple of (crates, commands).
 prepare :: String -> (String, String)
 prepare xs = (unlines . init $ crates, unlines . filter (/= "") $ cmds)
   where

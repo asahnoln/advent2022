@@ -7,21 +7,24 @@ where
 
 import Data.List (groupBy, sort)
 
-{- | `findLargestCalory` finds largest calory sum from the list of calories
+{- | 'findLargestCalory' finds largest calory sum from the list of calories
+
 >>> findLargestCalory [[1, 2, 3], [5, 6], [4, 1]]
 11 -- From the second list [5, 6]
 -}
 findLargestCalory :: [[Integer]] -> Integer
 findLargestCalory = maximum . map sum
 
-{- | `findLargestCaloryOfTop3` finds the sum of top 3 largest calory sums from the list of calories
+{- | 'findLargestCaloryOfTop3' finds the sum of top 3 largest calory sums from the list of calories
+
 >>> findLargestCaloryOfTop3 [[1, 2], [5, 5], [4, 1], [2, 4]]
 21 -- From the last 3 lists
 -}
 findLargestCaloryOfTop3 :: [[Integer]] -> Integer
 findLargestCaloryOfTop3 = sum . take 3 . reverse . sort . map sum
 
-{- | `convertSringToCalories` converts given strings with newline to list of calories.
+{- | 'convertSringToCalories' converts given strings with newline to list of calories.
+
 >>> convertSringToCalories "1\\n2\\n3\\n\\n4\\n\\n5\\n6"
 [[1, 2, 3], [4], [5, 6]]
 -}

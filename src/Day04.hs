@@ -2,13 +2,16 @@
 
 module Day04 (fullOverlaps, partOverlaps) where
 
+import Data.Either (fromRight)
 import Data.List (intersect)
 import Data.Text qualified as T
 import Data.Text.Read qualified as R
 
+-- | Find full overlaps of given nubmer ranges.
 fullOverlaps :: String -> Integer
 fullOverlaps = baseOverlaps True
 
+-- | Find partial overlaps of given nubmer ranges.
 partOverlaps :: String -> Integer
 partOverlaps = baseOverlaps False
 
@@ -32,9 +35,7 @@ overlaps full xs = result
             else not . null $ i
 
 toNumbers :: [T.Text] -> [Integer]
-toNumbers ts = case rslt of
-    Right x -> x
-    Left _ -> []
+toNumbers ts = fromRight [] rslt
   where
     rslt = do
         (start, _) <- R.decimal $ ts !! 0
