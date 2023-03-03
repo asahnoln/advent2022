@@ -1,4 +1,14 @@
-module Day05 (performOn, move, parseCrates, parseCmds, Move (..), prepare, logPerformOn) where
+module Day05 (
+    performOn,
+    move,
+    parseCrates,
+    parseCmds,
+    Move (..),
+    prepare,
+    logPerformOn,
+    perform9001On,
+    move9001,
+) where
 
 import Data.Char (isSpace)
 
@@ -16,31 +26,48 @@ data Move = Move Count From To deriving (Show, Eq)
 
 -- | Finds top crates for the given string of crates and commands.
 performOn :: String -> String
-performOn xss = map headForEmpty final
+performOn = basePerformOn move
+
+-- | Finds top crates for the given string of crates and commands, saving the order for multiple crates moves.
+perform9001On :: String -> String
+perform9001On = basePerformOn move9001
+
+basePerformOn :: (Move -> [String] -> [String]) -> String -> String
+basePerformOn fMove xss = map headForEmpty final
   where
-    (_, final) = last $ logPerformOn xss
+    (_, final) = last $ baseLogPerformOn fMove xss
 
     headForEmpty :: String -> Char
     headForEmpty "" = ' '
     headForEmpty (x : _) = x
 
 logPerformOn :: String -> [(Move, [String])]
-logPerformOn xss = zip (Move 0 0 0 : cmds) (reverse final)
+logPerformOn = baseLogPerformOn move
+
+baseLogPerformOn :: (Move -> [String] -> [String]) -> String -> [(Move, [String])]
+baseLogPerformOn fMove xss = zip (Move 0 0 0 : cmds) (reverse final)
   where
     (cratesString, cmdString) = prepare xss
     crates = parseCrates cratesString
     cmds = parseCmds cmdString
-    final = scanr move crates (reverse cmds)
+    final = scanr fMove crates (reverse cmds)
 
--- | Moves crates with given Move command for the given string of crates.
+-- | Moves crates with given Move command for the given string of crates in reverse order.
 move :: Move -> [String] -> [String]
-move (Move c f t) xss = result
+move = baseMove True
+
+-- | Moves crates with given Move command for the given string of crates saving the order.
+move9001 :: Move -> [String] -> [String]
+move9001 = baseMove False
+
+baseMove :: Bool -> Move -> [String] -> [String]
+baseMove rv (Move c f t) xss = result
   where
     rTo = xss !! (t - 1)
     rFrom = xss !! (f - 1)
 
     (crates, rFromFinal) = splitAt c rFrom
-    rToFinal = reverse crates ++ rTo
+    rToFinal = (if rv then reverse crates else crates) ++ rTo
 
     result =
         zipWith

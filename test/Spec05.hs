@@ -28,6 +28,8 @@ spec = do
                     parseCrates "    [C]\n[B] [D]" `shouldBe` ["B", "CD"]
             it "moves crates" $ do
                 move (Move 3 1 3) ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "ZNDP"]
+            it "moves crates in the same order" $ do
+                move9001 (Move 3 1 3) ["DNZ", "CM", "P"] `shouldBe` ["", "CM", "DNZP"]
             it "break string into crates and commands" $ do
                 prepare "[A]\n 1 \n\nmove 1 from 2 to 3"
                     `shouldBe` ("[A]\n", "move 1 from 2 to 3\n")
@@ -56,6 +58,19 @@ spec = do
                         `shouldBe` "ZCD"
                 it "for some empty columns" $ do
                     performOn "[A] [B]\n 1  2 \n\nmove 1 from 1 to 2" `shouldBe` " A"
+            context "CrateMover 9001" $ do
+                it "moves multiple crates in the same order" $ do
+                    perform9001On
+                        "    [D]    \n\
+                        \[N] [C]    \n\
+                        \[Z] [M] [P]\n\
+                        \ 1   2   3 \n\
+                        \\n\
+                        \move 1 from 2 to 1\n\
+                        \move 3 from 1 to 3\n\
+                        \move 2 from 2 to 1\n\
+                        \move 1 from 1 to 2"
+                        `shouldBe` "MCD"
             context "log" $ do
                 it "logs moving crates" $ do
                     logPerformOn
