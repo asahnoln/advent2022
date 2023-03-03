@@ -1,4 +1,4 @@
-module Day05 (performOn, move, parseCrates, parseCmds, Move (..), prepare) where
+module Day05 (performOn, move, parseCrates, parseCmds, Move (..), prepare, logPerformOn) where
 
 import Data.Char (isSpace)
 
@@ -18,14 +18,19 @@ data Move = Move Count From To deriving (Show, Eq)
 performOn :: String -> String
 performOn xss = map headForEmpty final
   where
-    (cratesString, cmdString) = prepare xss
-    crates = parseCrates cratesString
-    cmds = parseCmds cmdString
-    final = foldr move crates cmds
+    (_, final) = last $ logPerformOn xss
 
     headForEmpty :: String -> Char
     headForEmpty "" = ' '
     headForEmpty (x : _) = x
+
+logPerformOn :: String -> [(Move, [String])]
+logPerformOn xss = zip (Move 0 0 0 : cmds) (reverse final)
+  where
+    (cratesString, cmdString) = prepare xss
+    crates = parseCrates cratesString
+    cmds = parseCmds cmdString
+    final = scanr move crates (reverse cmds)
 
 -- | Moves crates with given Move command for the given string of crates.
 move :: Move -> [String] -> [String]

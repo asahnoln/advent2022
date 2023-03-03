@@ -44,5 +44,33 @@ spec = do
                         \move 2 from 2 to 1\n\
                         \move 1 from 1 to 2"
                         `shouldBe` "CMZ"
+                it "make sure order of moves is proper" $ do
+                    performOn
+                        "    [D]    \n\
+                        \[N] [C]    \n\
+                        \[Z] [M] [P]\n\
+                        \ 1   2   3 \n\
+                        \\n\
+                        \move 1 from 1 to 2\n\
+                        \move 2 from 2 to 3"
+                        `shouldBe` "ZCD"
                 it "for some empty columns" $ do
                     performOn "[A] [B]\n 1  2 \n\nmove 1 from 1 to 2" `shouldBe` " A"
+            context "log" $ do
+                it "logs moving crates" $ do
+                    logPerformOn
+                        "    [D]    \n\
+                        \[N] [C]    \n\
+                        \[Z] [M] [P]\n\
+                        \ 1   2   3 \n\
+                        \\n\
+                        \move 1 from 2 to 1\n\
+                        \move 3 from 1 to 3\n\
+                        \move 2 from 2 to 1\n\
+                        \move 1 from 1 to 2"
+                        `shouldBe` [ (Move 0 0 0, ["NZ", "DCM", "P"])
+                                   , (Move 1 2 1, ["DNZ", "CM", "P"])
+                                   , (Move 3 1 3, ["", "CM", "ZNDP"])
+                                   , (Move 2 2 1, ["MC", "", "ZNDP"])
+                                   , (Move 1 1 2, ["C", "M", "ZNDP"])
+                                   ]
