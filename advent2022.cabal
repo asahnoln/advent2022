@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -61,6 +61,7 @@ test-suite advent2022-test
       Spec03
       Spec04
       Spec05
+      Spec06
       Paths_advent2022
   hs-source-dirs:
       test
