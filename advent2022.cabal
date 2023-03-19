@@ -31,6 +31,7 @@ library
       Day04
       Day05
       Day06
+      Day07
   other-modules:
       Paths_advent2022
   hs-source-dirs:
@@ -63,6 +64,7 @@ test-suite advent2022-test
       Spec04
       Spec05
       Spec06
+      Spec07
       Paths_advent2022
   hs-source-dirs:
       test
