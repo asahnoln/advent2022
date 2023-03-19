@@ -8,9 +8,10 @@ import Day02 (parse, parseWithResults)
 import Day03 (sumBadges, sumDups)
 import Day04 (fullOverlaps, partOverlaps)
 import Day05 (perform9001On, performOn)
+import Day06 (markerPos, messagePos)
 
 main :: IO ()
-main = day05
+main = day06
 
 day01 :: IO ()
 day01 = do
@@ -36,3 +37,8 @@ day05 :: IO ()
 day05 = do
     l <- getContents
     print $ perform9001On l
+
+day06 :: IO ()
+day06 = do
+    l <- getContents
+    print $ messagePos l

@@ -13,3 +13,9 @@ spec = do
                 markerPos "nppdvjthqldpwncqszvftbrmjlhg" `shouldBe` 6
                 markerPos "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" `shouldBe` 10
                 markerPos "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" `shouldBe` 11
+            it "gets the positiong of last message character" $ do
+                messagePos "mjqjpqmgbljsphdztnvjfqwrcgsmlb" `shouldBe` 19
+                messagePos "bvwbjplbgvbhsrlpgdmjqwftvncz" `shouldBe` 23
+                messagePos "nppdvjthqldpwncqszvftbrmjlhg" `shouldBe` 23
+                messagePos "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" `shouldBe` 29
+                messagePos "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" `shouldBe` 26
